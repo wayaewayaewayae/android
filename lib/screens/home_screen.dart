@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prakerin/config/palette.dart';
 import 'package:prakerin/config/styles.dart';
 import 'package:prakerin/data/data.dart';
-import 'package:prakerin/widgets/country_dropdown.dart';
-import 'package:prakerin/widgets/custom_app_bar.dart';
+import 'package:prakerin/widgets/widgets.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -12,6 +11,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   String _country = 'USA';
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: CustomScrollView(
         physics: ClampingScrollPhysics(),
         slivers: <Widget>[
-          _buildHearder(screenHeight),
+          _buildHeader(screenHeight),
           _buildPreventionTips(screenHeight),
           _buildYourOwnTest(screenHeight),
         ],
@@ -28,15 +28,17 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  SliverToBoxAdapter _buildHearder(double screenHeight) {
+  SliverToBoxAdapter _buildHeader(double screenHeight) {
+    var primaryColor;
     return SliverToBoxAdapter(
       child: Container(
         padding: const EdgeInsets.all(20.0),
         decoration: BoxDecoration(
-          color: Pallete.primaryColor,
+          color: Palette.primaryColor,
           borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(40.0),
-              bottomRight: Radius.circular(40.0)),
+            bottomLeft: Radius.circular(40.0),
+            bottomRight: Radius.circular(40.0),
+          ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  'Are you Feeling Sick?',
+                  'Are you feeling sick?',
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 22.0,
@@ -73,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 SizedBox(height: screenHeight * 0.01),
                 Text(
-                  'if you feel sick with any COVID-19 symptoms, please call or text us immediately for help',
+                  'If you feel sick with any COVID-19 symptoms, please call or text us immediately for help',
                   style: const TextStyle(
                     color: Colors.white70,
                     fontSize: 15.0,
@@ -124,16 +126,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       textColor: Colors.white,
                     ),
                   ],
-                )
+                ),
               ],
-            ),
+            )
           ],
         ),
       ),
     );
   }
 
-  SliverToBoxAdapter _buildPrevention(double screenHeight) {
+  SliverToBoxAdapter _buildPreventionTips(double screenHeight) {
     return SliverToBoxAdapter(
       child: Container(
         padding: const EdgeInsets.all(20.0),
@@ -184,7 +186,6 @@ class _HomeScreenState extends State<HomeScreen> {
           horizontal: 20.0,
         ),
         padding: const EdgeInsets.all(10.0),
-        color: Colors.orange,
         height: screenHeight * 0.15,
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -195,22 +196,37 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            Image.asset('assets/image/own_test.png'),
+            Image.asset('assets/images/own_test.png'),
             Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Do your own test'),
                 Text(
-                  'Follow the instructions\nto do your test.',
+                  'Do your own test!',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: screenHeight * 0.01),
+                Text(
+                  'Follow the instructions\nto do your own test.',
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16.0,
                   ),
+                  maxLines: 2,
                 ),
               ],
-            ),
+            )
           ],
         ),
       ),
     );
   }
+}
+
+class Palette {
+  static var primaryColor;
 }
